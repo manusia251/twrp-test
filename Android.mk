@@ -7,7 +7,8 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),X6512)
+ifeq ($(TARGET_DEVICE),twrp_X6512)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif
+
 
