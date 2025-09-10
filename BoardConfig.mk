@@ -128,7 +128,7 @@ OF_PATCH_AVB20 := true
 
 # -- Fitur Tambahan --
 # Fitur navigasi tombol (sudah kamu tambahkan, bagus!)
-export OF_USE_KEY_HANDLER := 1
+OF_USE_KEY_HANDLER := true
 
 # Mengaktifkan fitur senter di recovery
 OF_FLASHLIGHT_ENABLE := true
