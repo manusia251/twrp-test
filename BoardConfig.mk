@@ -114,7 +114,7 @@ PLATFORM_VERSION := 16.1.0
 # -- Variabel Wajib --
 # Untuk penamaan file ZIP/IMG dan info di recovery
 OF_MAINTAINER := "manusia251"
-FOX_VERSION := "R12.1_1" # Kamu bisa ganti versinya, misal R12.1_2, dst.
+FOX_VERSION := "R11.1_1" # Kamu bisa ganti versinya, misal R12.1_2, dst.
 
 # Menentukan lokasi file fstab recovery. Ini sangat penting!
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
