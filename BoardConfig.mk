@@ -100,13 +100,47 @@ VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
 # TWRP Configuration
-TW_THEME := portrait_hdpi
-TW_EXTRA_LANGUAGES := true
-TW_SCREEN_BLANK_ON_BOOT := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_USE_TOOLBOX := true
-TW_INCLUDE_REPACKTOOLS := true
+#TW_THEME := portrait_hdpi
+#TW_EXTRA_LANGUAGES := true
+#TW_SCREEN_BLANK_ON_BOOT := true
+#TW_INPUT_BLACKLIST := "hbtp_vm"
+#TW_USE_TOOLBOX := true
+#TW_INCLUDE_REPACKTOOLS := true
 
-# Enable OrangeFox Key Handler for navigation without touchscreen
+#
+# --- OrangeFox Recovery Flags ---
+#
+
+# -- Variabel Wajib --
+# Untuk penamaan file ZIP/IMG dan info di recovery
+OF_MAINTAINER := "manusia251"
+FOX_VERSION := "R12.1_1" # Kamu bisa ganti versinya, misal R12.1_2, dst.
+
+# Menentukan lokasi file fstab recovery. Ini sangat penting!
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
+
+# -- Konfigurasi Khusus Device (A/B, AVB) --
+# Karena devicemu A/B dan recovery-as-boot, flag ini PENTING
+FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER := true
+
+# Karena devicemu pakai AVB 2.0, flag ini direkomendasikan
+OF_PATCH_AVB20 := true
+
+# -- Fitur Tambahan --
+# Fitur navigasi tombol (sudah kamu tambahkan, bagus!)
 export OF_USE_KEY_HANDLER := 1
+
+# Mengaktifkan fitur senter di recovery
+OF_FLASHLIGHT_ENABLE := true
+
+# Menghilangkan Navbar (jika perlu)
+OF_ALLOW_DISABLE_NAVBAR := 0
+
+# -- Tampilan (Opsional, tapi sangat membantu) --
+# Sesuaikan dengan resolusi layar HP-mu. Infinix Smart 6 (X6512) resolusinya 720x1600.
+OF_SCREEN_H := 1612
+OF_SCREEN_W := 720
+OF_STATUS_H := 80 # Tinggi status bar (bisa dicoba-coba)
+OF_STATUS_INDENT_LEFT := 48
+OF_STATUS_INDENT_RIGHT := 48
 
