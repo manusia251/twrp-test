@@ -106,3 +106,7 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
+
+# Enable OrangeFox Key Handler for navigation without touchscreen
+export OF_USE_KEY_HANDLER := 1
+
