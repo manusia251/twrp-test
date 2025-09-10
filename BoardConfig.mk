@@ -136,11 +136,7 @@ OF_FLASHLIGHT_ENABLE := true
 # Menghilangkan Navbar (jika perlu)
 OF_ALLOW_DISABLE_NAVBAR := 0
 
-# -- Tampilan (Opsional, tapi sangat membantu) --
-# Sesuaikan dengan resolusi layar HP-mu. Infinix Smart 6 (X6512) resolusinya 720x1600.
-OF_SCREEN_H := 1612
-OF_SCREEN_W := 720
-OF_STATUS_H := 80 # Tinggi status bar (bisa dicoba-coba)
-OF_STATUS_INDENT_LEFT := 48
-OF_STATUS_INDENT_RIGHT := 48
-
+# ... (variabel lain tetap)
+export TW_THEME=portrait_hdpi
+export TARGET_SCREEN_WIDTH=720
+export TARGET_SCREEN_HEIGHT=1612
