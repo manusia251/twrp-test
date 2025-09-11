@@ -1,25 +1,20 @@
 #
 # Copyright (C) 2025 The Android Open Source Project
-# Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/embedded.mk)
-$(call inherit-product, vendor/omni/config/common.mk)
+# Inherit from common AOSP config
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-# Warisan dari device tree utama
-$(call inherit-product, device/infinix/X6512/omni_X6512.mk)
+# Inherit from TWRP common config
+$(call inherit-product, vendor/twrp/config/common.mk)
 
+# Inherit from device
+$(call inherit-product, device/infinix/X6512/device.mk)
+
+# Device identifier
 PRODUCT_DEVICE := X6512
-PRODUCT_NAME := omni_X6512
+PRODUCT_NAME := twrp_X6512
 PRODUCT_BRAND := Infinix
 PRODUCT_MODEL := Infinix X6512
-PRODUCT_MANUFACTURER := Infinix
-
-PRODUCT_GMS_CLIENTID_BASE := android-infinix
-
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="vnd_x6512_h6126-user 11 RP1A.200720.011 121942 release-keys"
-
-BUILD_FINGERPRINT := Infinix/X6512-RU/X6512:11/RP1A.200720.011/221013V479:user/release-keys
