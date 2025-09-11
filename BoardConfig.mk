@@ -54,8 +54,6 @@ BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-TARGET_KERNEL_CONFIG := Infinix-X6512_defconfig
-TARGET_KERNEL_SOURCE := kernel/infinix/Infinix-X6512
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
@@ -67,76 +65,74 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG :=
 endif
 
 # Partitions
-BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
-BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
+BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := infinix_dynamic_partitions
 BOARD_INFINIX_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product
-BOARD_INFINIX_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
+BOARD_INFINIX_DYNAMIC_PARTITIONS_SIZE := 9122611200
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6761
 
 # Recovery
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Security patch level
-VENDOR_SECURITY_PATCH := 2021-08-01
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 11
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
-
-# Hack: prevent anti rollback
-PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
+BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # TWRP Configuration
-#TW_THEME := portrait_hdpi
-#TW_EXTRA_LANGUAGES := true
-#TW_SCREEN_BLANK_ON_BOOT := true
-#TW_INPUT_BLACKLIST := "hbtp_vm"
-#TW_USE_TOOLBOX := true
-#TW_INCLUDE_REPACKTOOLS := true
+TW_THEME := portrait_hdpi
+RECOVERY_SDCARD_ON_DATA := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXTRA_LANGUAGES := false
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_USE_TOOLBOX := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 2047
+TW_DEFAULT_BRIGHTNESS := 1200
 
-#
-# --- OrangeFox Recovery Flags ---
-#
+# ADB Configuration - PENTING untuk ADB aktif
+TW_INCLUDE_RESETPROP := true
+TW_EXCLUDE_TWRPAPP := true
+TW_NO_SCREEN_BLANK := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TW_HAS_USB_STORAGE := true
+TW_IGNORE_MISC_WIPE_DATA := true
 
-# -- Variabel Wajib --
-# Untuk penamaan file ZIP/IMG dan info di recovery
-OF_MAINTAINER := "manusia251"
-FOX_VERSION := "R11.1_1" # Kamu bisa ganti versinya, misal R12.1_2, dst.
+# Touchscreen fix untuk Omnivision
+TW_LOAD_VENDOR_MODULES := "omnivision_touch.ko"
+TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone0/temp
 
-# Menentukan lokasi file fstab recovery. Ini sangat penting!
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
+# Crypto
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+BOARD_USES_METADATA_PARTITION := true
 
-# -- Konfigurasi Khusus Device (A/B, AVB) --
-# Karena devicemu A/B dan recovery-as-boot, flag ini PENTING
-FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER := true
+# Debug flags
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
 
-# Karena devicemu pakai AVB 2.0, flag ini direkomendasikan
-OF_PATCH_AVB20 := true
-
-# -- Fitur Tambahan --
-# Fitur navigasi tombol (sudah kamu tambahkan, bagus!)
-OF_USE_KEY_HANDLER := true
-
-# Mengaktifkan fitur senter di recovery
-OF_FLASHLIGHT_ENABLE := true
-
-# Menghilangkan Navbar (jika perlu)
-OF_ALLOW_DISABLE_NAVBAR := 0
-
-# ... (variabel lain tetap)
-export TW_THEME=portrait_hdpi
-export TARGET_SCREEN_WIDTH=720
-export TARGET_SCREEN_HEIGHT=1612
+# Recovery fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
